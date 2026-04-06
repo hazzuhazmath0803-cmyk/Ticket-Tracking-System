@@ -1,0 +1,89 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f6f9;
+}
+
+/* Navbar */
+.navbar {
+    background: #2c3e50;
+    padding: 15px;
+    color: white;
+    text-align: center;
+    font-size: 20px;
+}
+
+/* Center wrapper */
+.center-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+}
+
+/* Card */
+.card {
+    background: white;
+    padding: 30px;
+    width: 400px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+/* Inputs */
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+/* Buttons */
+button, .btn {
+    padding: 10px 15px;
+    margin: 10px 5px;
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+button:hover, .btn:hover {
+    background: #2980b9;
+}
+
+.logout {
+    background: #e74c3c;
+}
+
+.logout:hover {
+    background: #c0392b;
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+th {
+    background: #3498db;
+    color: white;
+}
+
+/* Status Colors */
+.open { color: green; font-weight: bold; }
+.in-progress { color: orange; font-weight: bold; }
+.closed { color: red; font-weight: bold; }
+
+.error {
+    color: red;
+}

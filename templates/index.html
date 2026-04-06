@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Ticket Tracking System</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+body{
+font-family: Arial;
+margin:40px;
+}
+
+.dashboard-container{
+width:500px;
+height:300px;
+}
+
+#myChart{
+width:100% !important;
+height:100% !important;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h2>Create Ticket</h2>
+
+Title:
+<input type="text" id="title"><br><br>
+
+Description:
+<input type="text" id="description"><br><br>
+
+Assign User:
+<input type="text" id="assigned_to"><br><br>
+
+Due Date:
+<input type="date" id="due_date"><br><br>
+
+Status:
+<select id="status">
+<option value="OPEN">OPEN</option>
+<option value="IN_PROGRESS">IN_PROGRESS</option>
+<option value="CLOSED">CLOSED</option>
+</select><br><br>
+
+Priority:
+<select id="priority">
+<option value="LOW">LOW</option>
+<option value="MEDIUM">MEDIUM</option>
+<option value="HIGH">HIGH</option>
+</select><br><br>
+
+<button onclick="createTicket()">Create Ticket</button>
+
+<hr>
+
+<h2>Search Ticket</h2>
+
+<input type="text" id="searchBox">
+<button onclick="searchTicket()">Search</button>
+
+<hr>
+
+<h2>Dashboard</h2>
+
+<button onclick="loadDashboard()">Load Dashboard</button>
+
+<p>Total: <span id="total"></span></p>
+<p>Open: <span id="open"></span></p>
+<p>Closed: <span id="closed"></span></p>
+<p>In Progress: <span id="progress"></span></p>
+
+<div class="dashboard-container">
+<canvas id="myChart"></canvas>
+</div>
+
+<hr>
+
+<h2>Tickets</h2>
+
+<button onclick="fetchTickets()">Fetch All</button>
+<button onclick="filterTickets('OPEN')">OPEN</button>
+<button onclick="filterTickets('CLOSED')">CLOSED</button>
+<button onclick="filterTickets('IN_PROGRESS')">IN_PROGRESS</button>
+
+<ul id="ticketList"></ul>
+
+<script>
+
+let chart;
+
+function createTicket(){
+
+fetch("/tickets",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+title:title.value,
+description:description.value,
+status:status.value,
+priority:priority.value,
+assigned_to:assigned_to.value,
+due_date:due_date.value
+})
+})
+.then(res=>res.json())
+.then(data=>{
+alert(data.message);
+fetchTickets();
+});
+
+}
+
+function fetchTickets(){
+
+fetch("/tickets")
+.then(res=>res.json())
+.then(data=>{
+
+ticketList.innerHTML="";
+
+data.forEach(t=>{
+
+ticketList.innerHTML+=`
+<li>
+${t.id} - ${t.title} - ${t.status} - ${t.priority} 
+- ${t.assigned_to} - ${t.due_date}
+
+<button onclick="deleteTicket(${t.id})">Delete</button>
+<button onclick="updateTicket(${t.id})">Update</button>
+
+</li>`;
+
+});
+
+});
+
+}
+
+function deleteTicket(id){
+
+fetch("/tickets/"+id,{
+method:"DELETE"
+})
+.then(res=>res.json())
+.then(data=>{
+alert(data.message);
+fetchTickets();
+});
+
+}
+
+function updateTicket(id){
+
+let title=prompt("New Title");
+let desc=prompt("New Description");
+let status=prompt("OPEN / CLOSED / IN_PROGRESS");
+let priority=prompt("LOW / MEDIUM / HIGH");
+let assign=prompt("Assign User");
+let due=prompt("Due Date (YYYY-MM-DD)");
+
+fetch("/tickets/"+id,{
+method:"PUT",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+title:title,
+description:desc,
+status:status,
+priority:priority,
+assigned_to:assign,
+due_date:due
+})
+})
+.then(res=>res.json())
+.then(data=>{
+alert(data.message);
+fetchTickets();
+});
+
+}
+
+function filterTickets(status){
+
+fetch("/tickets/status/"+status)
+.then(res=>res.json())
+.then(data=>{
+
+ticketList.innerHTML="";
+
+data.forEach(t=>{
+ticketList.innerHTML+=`
+<li>
+${t.id} - ${t.title} - ${t.status}
+</li>`;
+});
+
+});
+
+}
+
+function searchTicket(){
+
+let key=searchBox.value;
+
+fetch("/search/"+key)
+.then(res=>res.json())
+.then(data=>{
+
+ticketList.innerHTML="";
+
+data.forEach(t=>{
+ticketList.innerHTML+=`
+<li>
+${t.id} - ${t.title} - ${t.assigned_to}
+</li>`;
+});
+
+});
+
+}
+
+function loadDashboard(){
+
+fetch("/dashboard")
+.then(res=>res.json())
+.then(data=>{
+
+total.innerText=data.total;
+open.innerText=data.open;
+closed.innerText=data.closed;
+progress.innerText=data.progress;
+
+const ctx=document.getElementById("myChart").getContext("2d");
+
+if(chart){
+chart.destroy();
+}
+
+chart=new Chart(ctx,{
+type:'bar',
+data:{
+labels:['OPEN','CLOSED','IN_PROGRESS'],
+datasets:[{
+label:'Ticket Count',
+data:[data.open,data.closed,data.progress]
+}]
+}
+});
+
+});
+
+}
+</script>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</body>
+</html>

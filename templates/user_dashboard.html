@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>User Dashboard</h3>
+<a href="{{ url_for('create_ticket') }}" class="btn btn-success">Create Ticket</a>
+<a href="{{ url_for('view_tickets') }}" class="btn btn-info">View My Tickets</a>
+{% endblock %}
