@@ -46,10 +46,6 @@ README.md
 
 ## ⚙️ Technologies Used
 
--   Python 3
--   Flask
--   ## ⚙️ Technologies Used
-
 - Python 3
 - Flask
 - mysql-connector-python
