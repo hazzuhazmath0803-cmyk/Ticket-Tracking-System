@@ -26,11 +26,17 @@ Controller → Service → Repository → Domain Model → Database
 
 ## 📂 Folder Structure
 
-ticket-tracking-system/ │ ├── controller/ \# Route handlers ├── service/
-\# Business logic ├── repository/ \# Database interaction ├── domain/ \#
-Core domain models ├── templates/ \# HTML views ├── static/ \# CSS & JS
-├── app.py \# Entry point ├── requirements.txt \# Dependencies └──
-README.md
+ticket-tracking-system/
+│
+├── controller/ # Route handlers
+├── service/ # Business logic
+├── repository/ # Database interaction
+├── domain/ # Core domain models
+├── templates/ # HTML views
+├── static/ # CSS & JS
+├── app.py # Entry point
+├── requirements.txt # Dependencies
+└── README.md
 
 ------------------------------------------------------------------------
 
@@ -70,6 +76,13 @@ README.md
 App runs at: http://127.0.0.1:5000
 
 ------------------------------------------------------------------------
+## 📌 Future Enhancements
+
+- Add role-based authentication (Admin/User)
+- Implement email notifications
+- Improve UI with modern frameworks
+- Add REST API support
+
 
 ## 👨‍💻 Author
 
