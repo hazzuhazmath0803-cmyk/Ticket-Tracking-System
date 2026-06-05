@@ -83,6 +83,38 @@ App runs at: http://127.0.0.1:5000
 - Improve UI with modern frameworks
 - Add REST API support
 
+## 📸 Application Screenshots
+
+### 🔐 Login Page
+![Login Page](screenshots/Login%20Page.png)
+
+### 👤 User Registration
+![User Registration](screenshots/User%20Registration.png)
+
+### 🖥 User Dashboard
+![User Dashboard](screenshots/User%20Dashboard.png)
+
+### 🎫 Create Ticket
+![Ticket Creation](screenshots/Ticket%20Creation.png)
+
+### 📋 User View Tickets
+![User View Tickets](screenshots/User%20View%20Tickets.png)
+
+### ✏️ User Ticket Updation
+![User Ticket Updation](screenshots/User%20Ticket%20Updation.png)
+
+### 👨‍💼 Admin Registration
+![Admin Registration](screenshots/Admin%20Registration.png)
+
+### 📊 Admin Dashboard
+![Admin Dashboard](screenshots/Admin%20Dashboard.png)
+
+### 📑 Admin View Tickets
+![Admin View Tickets](screenshots/Admin%20View%20Tickets.png)
+
+### 🔄 Admin Update Ticket
+![Admin Update](screenshots/Admin%20Update.png)
+
 
 ## 👨‍💻 Author
 
